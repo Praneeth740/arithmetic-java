@@ -121,7 +121,51 @@ public class AInteger{
                 
         return result;
     }
-   
+
+    public static String subString(String str1, int l1, String str2, int l2) {
+        String result = "";
+        if (l2 > l1) {
+            String tempStr = str1;
+            str1 = str2;
+            str2 = tempStr;
+    
+            int tempLen = l1;
+            l1 = l2;
+            l2 = tempLen;
+        }
+    
+        int carry = 0;
+        for (int i = l1 - 1, j = l2 - 1; i >= l1 - l2 && j >= 0; i--, j--) {
+            int v1 = (i>=0) ? str1.charAt(i) - '0': 0;
+            int v2 = (j>=0) ? str2.charAt(j) - '0': 0;
+    
+            v1 -= carry;
+            
+            if (v1 >= v2) {
+                result += (v1 - v2);
+                carry = 0;
+            } else { 
+                v1 += 10;
+                result += (v1 - v2);
+                carry = 1;
+            }
+        }
+        for (int i = l1 - l2 - 1; i >= 0; i--) {
+            int v1 = str1.charAt(i) - '0';
+            v1 -= carry;
+            
+            if (v1 >= 0) {
+                result += v1;
+                carry = 0;
+            } else {
+                v1 += 10;
+                result += v1;
+                carry = 1;
+            }
+        }
+    
+        return removeLeadingZeros(reverseString(result));
+    }   
      
 
  
