@@ -368,7 +368,37 @@ public class AInteger{
             String result=mulString(str1,str1.length(), str2, str2.length());
             return result;
         } 
-    }   
+    }
+
+    public  static String div(String str1, String str2) {
+        if (isInt(str1) == 0 || isInt(str2) == 0) {
+            throw new IllegalArgumentException("Inputs must be valid integers.");
+        }
+        if (removeLeadingZeros(str2).equals("0")) {
+            throw new ArithmeticException("Division by zero is undefined.");
+        }
+    
+        boolean negative = false;
+        if (str1.charAt(0) == '-' && str2.charAt(0) != '-') {
+            negative = true;
+            str1 = str1.substring(1);
+        } else if (str2.charAt(0) == '-' && str1.charAt(0) != '-') {
+            negative = true;
+            str2 = str2.substring(1);
+        } else if (str2.charAt(0) == '-' && str1.charAt(0) == '-') {
+            str1 = str1.substring(1);
+            str2 = str2.substring(1);
+        }
+        str1 = removeLeadingZeros(str1);
+        str2 = removeLeadingZeros(str2);
+        String result = divString(str1, str1.length(), str2, str2.length());
+        if (negative && !result.equals("0")) {
+            result = "-" + result;
+        }
+    
+        return result;
+    }
+}   
      
 
  
