@@ -204,7 +204,34 @@ public class AInteger{
             
         }
         return result;
-    }   
+    }
+
+    public static String divString(String str1, int l1, String str2, int l2) {
+        str1 = removeLeadingZeros(str1);
+        str2 = removeLeadingZeros(str2);
+        if (grtString(str1, str2) == 0) return "0";
+        if (grtString(str1, str2) == 2) return "1";
+    
+        String result = "";
+        String strip = "";
+    
+        int idx = 0;
+        while (idx < str1.length()) {
+            strip += str1.charAt(idx);
+            strip = removeLeadingZeros(strip);
+            int count = 0;
+            while (grtString(strip, str2) == 1 || grtString(strip, str2) == 2) {
+                strip = subString(strip, strip.length(), str2, l2);
+                strip = removeLeadingZeros(strip);
+                count++;
+            }
+            result += (char)(count + '0');
+            idx++;
+        }
+    
+        return removeLeadingZeros(result);
+    }
+   
      
 
  
