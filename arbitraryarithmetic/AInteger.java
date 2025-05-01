@@ -335,6 +335,39 @@ public class AInteger{
         }
         return "";
 
+    }
+    
+    public String mul(String str1,String str2){
+        if(isInt(str1)==0 || isInt(str2)==0){
+            throw new IllegalArgumentException("Inputs must be Integers.");
+        }
+        if(str1.charAt(0)=='-' && str2.charAt(0)!='-'){
+            str1=str1.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            String result=mulString(str1,str1.length(), str2, str2.length());
+            result='-'+result;
+            return result;
+        }else if(str2.charAt(0)=='-' && str1.charAt(0)!='-'){
+            str2=str2.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            String result=mulString(str1,str1.length(), str2, str2.length());
+            result='-'+result;
+            return result;
+        }else if(str2.charAt(0)=='-' && str1.charAt(0)=='-'){
+            str1=str1.substring(1);
+            str2=str2.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            String result=mulString(str1,str1.length(), str2, str2.length());
+            return result;
+        }else{
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            String result=mulString(str1,str1.length(), str2, str2.length());
+            return result;
+        } 
     }   
      
 
