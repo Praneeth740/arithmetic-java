@@ -165,6 +165,45 @@ public class AInteger{
         }
     
         return removeLeadingZeros(reverseString(result));
+    }
+
+
+    public static String mulString(String str1, int l1, String str2, int l2){
+        String result = "0";
+        if (l2 > l1) {
+            String tempStr = str1;
+            str1 = str2;
+            str2 = tempStr;
+    
+            int tempLen = l1;
+            l1 = l2;
+            l2 = tempLen;
+        }
+        for( int i=l2-1;i>=0; i--){
+            String tempString="";
+            int carry=0;
+            for(int j=l1-1;j>=0;j--){
+                int v1=str1.charAt(j)-'0';
+                int v2=str2.charAt(i)-'0';
+                if (v1*v2+carry<10){
+                    tempString=(char)(v1*v2+carry+'0')+tempString;
+                    carry=0;
+                } else if(v1*v2+carry>=10){
+                    tempString=(char)((v1*v2+carry)%10+'0')+tempString;
+                    carry=(v1*v2+carry)/10;
+                }
+            }
+            while(carry>0){
+                tempString=(char)(carry%10+'0')+tempString;
+                carry=carry/10; 
+            }
+            for(int j=0;j<l2-i-1;j++){
+                tempString+="0";
+            }
+            result=addString(result, result.length(), tempString, tempString.length());
+            
+        }
+        return result;
     }   
      
 
