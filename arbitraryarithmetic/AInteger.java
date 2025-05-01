@@ -88,7 +88,40 @@ public class AInteger{
         }
         return 1;
     }
-    
+    public static String addString(String str1,int l1, String str2,int l2){
+        String result="";
+        int carry=0;
+        if (l2 > l1) {
+            String tempStr = str1;
+            str1 = str2;
+            str2 = tempStr;
+
+            int tempLen = l1;
+            l1 = l2;
+            l2 = tempLen;
+        }
+        for( int i=l1-1,j=l2-1; i>=l1-l2 && j>=0; i--,j--){
+            int v1=str1.charAt(i)-'0';
+            int v2=str2.charAt(j)-'0';
+            int sum = v1 + v2 + carry;
+            result = (sum % 10)+ result;
+            carry = sum / 10;
+
+        }
+        for( int i=l1-l2-1 ; i>=0; i--){
+            int v1=str1.charAt(i)-'0';
+            int sum=v1+carry;
+            result=(sum)%10+result;
+            carry=sum/10;
+        }
+        while (carry > 0) {
+            result = (carry % 10)+result;
+            carry /= 10;
+        }
+                
+        return result;
+    }
+   
      
 
  
