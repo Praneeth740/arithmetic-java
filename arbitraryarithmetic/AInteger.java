@@ -231,7 +231,111 @@ public class AInteger{
     
         return removeLeadingZeros(result);
     }
-   
+
+    public String add(String str1,String str2){
+        if(isInt(str1)==0 || isInt(str2)==0){
+            throw new IllegalArgumentException("Inputs must be Integers.");
+        }
+        if(str1.charAt(0)=='-' && str2.charAt(0)!='-'){
+            str1=str1.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            if(grtString(str1, str2)==1){
+                String result=subString(str1,str1.length(),str2,str2.length());
+                result='-'+result;
+                return (grtString(result ,"-0")==2) ? "0" :result;
+            } else if(grtString(str1, str2)==0){
+                String result=subString(str2,str2.length(),str1,str1.length());
+                return (grtString(result ,"-0")==2) ? "0" :result;
+            }
+            else if (grtString(str1, str2)==2){
+                return "0";
+            }
+        }
+        else if (str2.charAt(0)=='-' && str1.charAt(0)!= '-'){
+            str2=str2.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            if(grtString(str1, str2)==1){
+                String result=subString(str1,str1.length(),str2,str2.length());
+                return (grtString(result ,"-0")==2) ? "0" :result;
+            } else if(grtString(str1, str2)==0){
+                String result=subString(str2,str2.length(),str1,str1.length());
+                result='-'+result;
+                return (grtString(result ,"-0")==2) ? "0" :result;
+            }
+            else if (grtString(str1, str2)==2){
+                return "0";
+            }
+
+        }else if (str2.charAt(0)=='-' && str1.charAt(0)== '-'){
+            str1=str1.substring(1);
+            str2=str2.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            String result=addString(str1,str1.length(),str2,str2.length());
+            result='-'+result;
+            return (grtString(result ,"-0")==2) ? "0" :result;
+            
+        }else{
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            String result=addString(str1,str1.length(),str2,str2.length());
+            return result;
+        }
+        return "";
+    }
+    public static String sub(String str1,String str2){
+        if(isInt(str1)==0 || isInt(str2)==0){
+            throw new IllegalArgumentException("Inputs must be Integers.");
+        }
+        if(str1.charAt(0)=='-' && str2.charAt(0)!='-'){
+            str1=str1.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            String result=addString(str1,str1.length(),str2,str2.length());
+            result='-'+result;
+            return (grtString(result ,"-0")==2) ? "0" :result; 
+        }else if(str2.charAt(0)=='-' && str1.charAt(0)!='-'){
+            str2=str2.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            String result=addString(str1,str1.length(),str2,str2.length());
+            return (grtString(result ,"-0")==2) ? "0" :result; 
+        }else if (str2.charAt(0)=='-' && str1.charAt(0)== '-'){
+            str1=str1.substring(1);
+            str2=str2.substring(1);
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            if(grtString(str1, str2)==1){
+                String result=subString(str1,str1.length(),str2,str2.length());
+                result='-'+result;
+                return (grtString(result ,"-0")==2) ? "0" :result;
+            }else if(grtString(str1,str2)==0){
+                String result=subString(str2,str2.length(),str1,str1.length());
+                return (grtString(result ,"-0")==2) ? "0" :result;
+            }else if(grtString(str1, str2)==2){
+                return "0";
+            }
+            
+            
+        }else{
+            str1=removeLeadingZeros(str1);
+            str2=removeLeadingZeros(str2);
+            if(grtString(str1, str2)==1){
+                String result=subString(str1,str1.length(),str2,str2.length());
+                return result;
+            }else if(grtString(str1,str2)==0){
+                String result=subString(str1,str1.length(),str2,str2.length());
+                result='-'+result;
+                return result;
+            }else if(grtString(str1,str2)==2){
+                return "0";
+            }
+        }
+        return "";
+
+    }   
      
 
  
