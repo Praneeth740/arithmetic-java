@@ -403,7 +403,7 @@ public class AInteger{
         if (isInt(str1) == 0 || isInt(str2) == 0) {
             throw new IllegalArgumentException("Inputs must be valid integers.");
         }
-        //Introduction division by zero exception to handle some invalid inputs.
+        //Introducing division by zero exception to handle some invalid inputs.
         if (removeLeadingZeros(str2).equals("0")) {
             throw new ArithmeticException("Division by zero is undefined.");
         }
