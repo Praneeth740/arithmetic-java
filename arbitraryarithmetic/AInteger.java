@@ -18,7 +18,7 @@ public class AInteger{
         AInteger S = new AInteger(s);
         return S;
     }
-
+     //A function that reverses a given string.
     public static String reverseString(String s){
         String result ="";
         for( int i =0; i<s.length(); i++){
@@ -26,7 +26,7 @@ public class AInteger{
         }
         return result;
     }
-
+    //A function that compares two strings numerically.
     public static int grtString(String str1, String str2) {
         str2 = removeLeadingZeros(str2);
         str1 = removeLeadingZeros(str1);
@@ -47,7 +47,7 @@ public class AInteger{
             return 2;
         }
     }
-    
+    //A function to check if the first arg is multiple of the second.
     public static int isMultiple(int x,int y){
         int a=0;
         if(y%x==0){
@@ -56,6 +56,7 @@ public class AInteger{
             return a;
         }
     }
+    //A function to remove leading zeros.
     public static String removeLeadingZeros(String str){
         int i = 0;
         if(str.charAt(0)=='-'){
@@ -72,7 +73,7 @@ public class AInteger{
         }
         return str.substring(i);
     }
-
+    //A function to check if input string is a valid integer.
     public static int isInt(String str1){
         if(str1.length() == 0) return 0;
         int start = 0;
@@ -88,9 +89,11 @@ public class AInteger{
         }
         return 1;
     }
+    //A function to add two strings with core logic. (Doesn't handle all cases)
     public static String addString(String str1,int l1, String str2,int l2){
         String result="";
         int carry=0;
+        //Swapping strings to make str1 always big.
         if (l2 > l1) {
             String tempStr = str1;
             str1 = str2;
@@ -100,6 +103,7 @@ public class AInteger{
             l1 = l2;
             l2 = tempLen;
         }
+        //Handling the addition of the substring that has same digits as str2.
         for( int i=l1-1,j=l2-1; i>=l1-l2 && j>=0; i--,j--){
             int v1=str1.charAt(i)-'0';
             int v2=str2.charAt(j)-'0';
@@ -108,12 +112,14 @@ public class AInteger{
             carry = sum / 10;
 
         }
+        //Handling the addition for the remaining substring left.
         for( int i=l1-l2-1 ; i>=0; i--){
             int v1=str1.charAt(i)-'0';
             int sum=v1+carry;
             result=(sum)%10+result;
             carry=sum/10;
         }
+        //Handling the carry.
         while (carry > 0) {
             result = (carry % 10)+result;
             carry /= 10;
@@ -121,9 +127,10 @@ public class AInteger{
                 
         return result;
     }
-
+    //A function to subract two strings with core logic. (Doesn't handle all cases)
     public static String subString(String str1, int l1, String str2, int l2) {
         String result = "";
+        //Swapping to make str1 bigger than str2. (for easy handling)
         if (l2 > l1) {
             String tempStr = str1;
             str1 = str2;
@@ -133,7 +140,7 @@ public class AInteger{
             l1 = l2;
             l2 = tempLen;
         }
-    
+        //Handling the subraction for the substring that has same digits as str2.
         int carry = 0;
         for (int i = l1 - 1, j = l2 - 1; i >= l1 - l2 && j >= 0; i--, j--) {
             int v1 = (i>=0) ? str1.charAt(i) - '0': 0;
@@ -150,6 +157,7 @@ public class AInteger{
                 carry = 1;
             }
         }
+        //Handling borrow.
         for (int i = l1 - l2 - 1; i >= 0; i--) {
             int v1 = str1.charAt(i) - '0';
             v1 -= carry;
@@ -167,9 +175,10 @@ public class AInteger{
         return removeLeadingZeros(reverseString(result));
     }
 
-
+    //A function to multiply two strings with core logic. (Doesn't handle all cases)
     public static String mulString(String str1, int l1, String str2, int l2){
         String result = "0";
+        //Swapping to make str1 big.(for easy handling)
         if (l2 > l1) {
             String tempStr = str1;
             str1 = str2;
@@ -179,6 +188,7 @@ public class AInteger{
             l1 = l2;
             l2 = tempLen;
         }
+        //main multiplication logic.
         for( int i=l2-1;i>=0; i--){
             String tempString="";
             int carry=0;
@@ -205,7 +215,7 @@ public class AInteger{
         }
         return result;
     }
-
+    //A function to divide two strings with core logic. (Doesn't handle all cases)
     public static String divString(String str1, int l1, String str2, int l2) {
         str1 = removeLeadingZeros(str1);
         str2 = removeLeadingZeros(str2);
@@ -216,6 +226,7 @@ public class AInteger{
         String strip = "";
     
         int idx = 0;
+        //Main division logic.
         while (idx < str1.length()) {
             strip += str1.charAt(idx);
             strip = removeLeadingZeros(strip);
@@ -231,11 +242,13 @@ public class AInteger{
     
         return removeLeadingZeros(result);
     }
-
+    //Implementing "addString" to all cases.
     public String add(String str1,String str2){
+        //Handling invalid inputs.
         if(isInt(str1)==0 || isInt(str2)==0){
             throw new IllegalArgumentException("Inputs must be Integers.");
         }
+        //Handling inputs, whose signs are opposite.
         if(str1.charAt(0)=='-' && str2.charAt(0)!='-'){
             str1=str1.substring(1);
             str1=removeLeadingZeros(str1);
@@ -252,6 +265,7 @@ public class AInteger{
                 return "0";
             }
         }
+        //Handling inputs, whose signs are opposite.
         else if (str2.charAt(0)=='-' && str1.charAt(0)!= '-'){
             str2=str2.substring(1);
             str1=removeLeadingZeros(str1);
@@ -267,7 +281,7 @@ public class AInteger{
             else if (grtString(str1, str2)==2){
                 return "0";
             }
-
+        //Handling inputs, if both are negative.
         }else if (str2.charAt(0)=='-' && str1.charAt(0)== '-'){
             str1=str1.substring(1);
             str2=str2.substring(1);
@@ -276,7 +290,7 @@ public class AInteger{
             String result=addString(str1,str1.length(),str2,str2.length());
             result='-'+result;
             return (grtString(result ,"-0")==2) ? "0" :result;
-            
+        //handling inputs if both are positive.    
         }else{
             str1=removeLeadingZeros(str1);
             str2=removeLeadingZeros(str2);
@@ -285,10 +299,13 @@ public class AInteger{
         }
         return "";
     }
+    //Implementing "subString" to all cases.
     public static String sub(String str1,String str2){
+        //Handling invalid inputs.
         if(isInt(str1)==0 || isInt(str2)==0){
             throw new IllegalArgumentException("Inputs must be Integers.");
         }
+        //Handling inputs if either of them is negative.
         if(str1.charAt(0)=='-' && str2.charAt(0)!='-'){
             str1=str1.substring(1);
             str1=removeLeadingZeros(str1);
@@ -302,7 +319,9 @@ public class AInteger{
             str2=removeLeadingZeros(str2);
             String result=addString(str1,str1.length(),str2,str2.length());
             return (grtString(result ,"-0")==2) ? "0" :result; 
-        }else if (str2.charAt(0)=='-' && str1.charAt(0)== '-'){
+        }
+        //Handling inputs, if both are negative.
+        else if (str2.charAt(0)=='-' && str1.charAt(0)== '-'){
             str1=str1.substring(1);
             str2=str2.substring(1);
             str1=removeLeadingZeros(str1);
@@ -319,7 +338,9 @@ public class AInteger{
             }
             
             
-        }else{
+        }
+        //Handling inputs if both are positive.
+        else{
             str1=removeLeadingZeros(str1);
             str2=removeLeadingZeros(str2);
             if(grtString(str1, str2)==1){
@@ -336,11 +357,13 @@ public class AInteger{
         return "";
 
     }
-    
+    //Implementing "mulString" to all cases.
     public String mul(String str1,String str2){
+        //Handling invalid inputs.
         if(isInt(str1)==0 || isInt(str2)==0){
             throw new IllegalArgumentException("Inputs must be Integers.");
         }
+        //Handling inputs if either of them is negative.
         if(str1.charAt(0)=='-' && str2.charAt(0)!='-'){
             str1=str1.substring(1);
             str1=removeLeadingZeros(str1);
@@ -348,36 +371,43 @@ public class AInteger{
             String result=mulString(str1,str1.length(), str2, str2.length());
             result='-'+result;
             return result;
-        }else if(str2.charAt(0)=='-' && str1.charAt(0)!='-'){
+        }
+        else if(str2.charAt(0)=='-' && str1.charAt(0)!='-'){
             str2=str2.substring(1);
             str1=removeLeadingZeros(str1);
             str2=removeLeadingZeros(str2);
             String result=mulString(str1,str1.length(), str2, str2.length());
             result='-'+result;
             return result;
-        }else if(str2.charAt(0)=='-' && str1.charAt(0)=='-'){
+        }
+        //Handling inputs if both of them are negative.
+        else if(str2.charAt(0)=='-' && str1.charAt(0)=='-'){
             str1=str1.substring(1);
             str2=str2.substring(1);
             str1=removeLeadingZeros(str1);
             str2=removeLeadingZeros(str2);
             String result=mulString(str1,str1.length(), str2, str2.length());
             return result;
-        }else{
+        }
+        //Handling inputs if both are positive.
+        else{
             str1=removeLeadingZeros(str1);
             str2=removeLeadingZeros(str2);
             String result=mulString(str1,str1.length(), str2, str2.length());
             return result;
         } 
     }
-
+    //Implementing "divString" to all cases.
     public  static String div(String str1, String str2) {
+        //Handling invalid inputs.
         if (isInt(str1) == 0 || isInt(str2) == 0) {
             throw new IllegalArgumentException("Inputs must be valid integers.");
         }
+        //Introduction division by zero exception to handle some invalid inputs.
         if (removeLeadingZeros(str2).equals("0")) {
             throw new ArithmeticException("Division by zero is undefined.");
         }
-    
+        //Handling different cases based on their signs.
         boolean negative = false;
         if (str1.charAt(0) == '-' && str2.charAt(0) != '-') {
             negative = true;
