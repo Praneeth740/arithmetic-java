@@ -12,26 +12,34 @@ JAVA_FILES = [
 def compile_java():
     needs_compile = False
     for java_file in JAVA_FILES:
-        class_file = java_file.replace(".java", ".class")
+        class_file = os.path.join("build", java_file.replace(".java", ".class"))
         if not os.path.exists(class_file) or \
            os.path.getmtime(java_file) > os.path.getmtime(class_file):
             needs_compile = True
             break
+
     if needs_compile:
         print("Compiling Java files...")
-        result = subprocess.run(["javac"] + JAVA_FILES, capture_output=True, text=True)
+
+        # Create the build directory if it doesn't exist
+        os.makedirs("build", exist_ok=True)
+
+        result = subprocess.run(["javac", "-d", "build"] + JAVA_FILES, capture_output=True, text=True)
+
         if result.returncode != 0:
             print("Compilation failed:\n", result.stderr)
             sys.exit(1)
     else:
         print("Java files already compiled.")
 
+
 def run_java(args):
-    cmd = ["java", "-cp", ".", "MyInfArith"] + args
+    cmd = ["java", "-cp", "build", "MyInfArith"] + args
     result = subprocess.run(cmd, capture_output=True, text=True)
     print(result.stdout.strip())
     if result.returncode != 0:
         print("Error running Java program:", result.stderr.strip())
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
