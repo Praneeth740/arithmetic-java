@@ -409,10 +409,12 @@ public class AFloat {
         String num1 = removeDecimal(str1);
         String num2 = removeDecimal(str2);
         int precision = 30;    //Precision.
-        num1 = num1 + repeatZeros(precision + decDivisor[1]);
+        int maxDecimals = Math.max(decDividend[1], decDivisor[1]);
+        num1 = removeDecimal(str1) + repeatZeros(maxDecimals - decDividend[1] + precision);
+        num2 = removeDecimal(str2) + repeatZeros(maxDecimals - decDivisor[1]);
         String quotient = AInteger.div(num1, num2);
-        int decimalShift = decDividend[1] + decDivisor[1];
-        int dotPos = quotient.length() - decimalShift - precision; //calculating where '.' should sit in quotient.
+        int decimalShift = decDividend[1] - decDivisor[1];
+        int dotPos = quotient.length() + decimalShift - (precision+maxDecimals)+4; //calculating where '.' should sit in quotient.
         
         StringBuilder result = new StringBuilder();
         if (dotPos <= 0) {                                 //If the quotient is purely fractional
